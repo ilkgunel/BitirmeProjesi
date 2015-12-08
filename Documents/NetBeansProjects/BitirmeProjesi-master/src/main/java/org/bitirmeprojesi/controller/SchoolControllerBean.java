@@ -46,7 +46,7 @@ public class SchoolControllerBean implements Serializable {
             setSchool(school);
             schoolList = schoolInsertDAOImplService.getSchoolListFromService();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, dto.getMessage(), null));
-            return "/schoolWorks/schoolList.xhtml?faces-redirect=true";
+            return "";
         } else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, dto.getMessage(), null));
             return "";

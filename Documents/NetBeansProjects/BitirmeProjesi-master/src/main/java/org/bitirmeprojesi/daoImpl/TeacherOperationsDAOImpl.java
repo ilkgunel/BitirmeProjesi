@@ -10,11 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Named;
 import org.bitirmeprojesi.dao.TeacherOperationsDAO;
+import org.bitirmeprojesi.dto.DTO;
 import org.bitirmeprojesi.entity.Teacher;
 
 /**
  *
- * @author Batuhan
+ * @author Batuhan And İlkay
  */
 @Named("teacherOperationsDAO")
 public class TeacherOperationsDAOImpl extends GenericJPADAOImpl<Teacher, Serializable> implements TeacherOperationsDAO {
@@ -29,6 +30,21 @@ public class TeacherOperationsDAOImpl extends GenericJPADAOImpl<Teacher, Seriali
             System.out.println("Error from TeacherDAOImpl:" + e.getLocalizedMessage());
         }
         return teachers;
+    }
+    
+    @Override
+    public DTO addTeacher(Teacher teacher)
+    {
+    	try {
+		this.create(teacher);
+                return new DTO("Success",true);
+		} 
+    	catch (Exception e) 
+    	{
+			System.err.println("An Error Occured!");
+			System.err.println("The Error Is:"+e);
+                        return new DTO("Failed",false);
+		}
     }
 
 }

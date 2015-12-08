@@ -26,8 +26,8 @@
                                     <f:selectItem itemLabel="Şehir seçiniz" itemValue="-"/>
                                     <f:selectItems value="#{schoolControllerBean.schoolCityList}" var="city" 
                                                    itemLabel="#{city.label}" itemValue="#{city.value}"/>
-                                    <f:ajax event="valueChange" listener="#{schoolControllerBean.refreshSchoolDistrictList()}" 
-                                            render="schoolDistrictList"/>
+                                    <p:ajax event="valueChange" listener="#{schoolControllerBean.refreshSchoolDistrictList()}" 
+                                            update="schoolDistrictList"/>
                                 </p:selectOneMenu>
                             </div> <!-- /field -->
 
@@ -40,8 +40,8 @@
                                     <f:selectItems value="#{schoolControllerBean.schoolDistrictList}" var="district"
                                                    itemValue="#{district.value}" itemLabel="#{district.label}"/>
 
-                                    <f:ajax event="valueChange" listener="#{schoolControllerBean.refreshSchoolNameList()}" 
-                                            render="schoolCityName"/>
+                                    <p:ajax event="valueChange" listener="#{schoolControllerBean.refreshSchoolNameList()}" 
+                                            update="schoolCityName"/>
                                 </p:selectOneMenu>
                             </div> <!-- /field -->
 

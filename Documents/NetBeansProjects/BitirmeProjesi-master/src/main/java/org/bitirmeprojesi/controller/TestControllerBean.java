@@ -73,7 +73,7 @@ public class TestControllerBean implements Serializable {
             testList = testOperationsDAOImplService.getTestListFromService();
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_INFO, dto.getMessage(), null));
-            return "/testWorks/testList.xhtml?faces-redirect=true";
+            return "";
         } else {
              FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_WARN, dto.getMessage(), null));

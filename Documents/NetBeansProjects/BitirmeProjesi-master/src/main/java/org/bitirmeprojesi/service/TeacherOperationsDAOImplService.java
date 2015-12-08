@@ -8,11 +8,14 @@ package org.bitirmeprojesi.service;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.ejb.Stateful;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.inject.Named;
+
 import org.bitirmeprojesi.dao.TeacherOperationsDAO;
+import org.bitirmeprojesi.dto.DTO;
 import org.bitirmeprojesi.entity.Teacher;
 
 /**
@@ -26,7 +29,19 @@ public class TeacherOperationsDAOImplService implements Serializable {
     private @Named("teacherOperationsDAO")
     transient TeacherOperationsDAO teacherOperationsDAO;
 
-    public List<Teacher> getTeachersFromService() {
+    public DTO insertTeacherFromService(Teacher teacher)
+    {
+    	try {
+			teacherOperationsDAO.addTeacher(teacher);
+			return new DTO("Teacher insert from service is successful",true);
+		} catch (Exception e) {
+			System.err.println("An error is occured while inserting the teacher!\nError is:"+e);
+			return new DTO("An error is occured while inserting the teacher!",false);
+		}
+    }
+    
+    public List<Teacher> getTeachersFromService() 
+    {
         List<Teacher> teacherList = new ArrayList<>();
         try {
             teacherList = teacherOperationsDAO.getTeachers();

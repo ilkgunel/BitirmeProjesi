@@ -18,7 +18,7 @@ import org.bitirmeprojesi.entity.Student;
 
 /**
  *
- * @author Batuhan
+ * @author Batuhan And İlkay
  */
 @Stateless
 public class StudentOperationsDAOImplService implements Serializable {
