@@ -9,8 +9,6 @@ import java.sql.SQLException;
  *  *
  *  * @author Batuhan  
  */
-
-
 enum Properties {
     DRIVER_CLASS("oracle.jdbc.driver.OracleDriver"), CONNECTION_URL("jdbc:oracle:thin:@localhost:1521:xe"),
     USER_NAME("HR"), PASSWORD("12345");
@@ -28,13 +26,9 @@ public class JDBC_Connection_Test {
         Connection connection = JDBC_Connection_Test.getConnection();
 
         if (connection != null) {
-
             System.out.println("Connection success!");
-
         } else {
-
             System.out.println("Connection failed!");
-
         }
 
     }
@@ -42,18 +36,14 @@ public class JDBC_Connection_Test {
     public static Connection getConnection() {
 
         Connection connection = null;
-
         try {
-
             Class.forName(Properties.DRIVER_CLASS.property);
         } catch (ClassNotFoundException cnfe) {
-
             System.out.println(cnfe.getMessage());
         }
         try {
             connection = DriverManager.getConnection(Properties.CONNECTION_URL.property,
-                    Properties.USER_NAME.property, Properties.PASSWORD.property
-            );
+                    Properties.USER_NAME.property, Properties.PASSWORD.property);
             if (connection != null) {
                 return connection;
             }
