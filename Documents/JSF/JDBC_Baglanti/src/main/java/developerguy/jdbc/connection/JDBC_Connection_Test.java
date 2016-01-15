@@ -36,6 +36,7 @@ public class JDBC_Connection_Test {
     public static Connection getConnection() {
 
         Connection connection = null;
+        
         try {
             Class.forName(Properties.DRIVER_CLASS.property);
         } catch (ClassNotFoundException cnfe) {
