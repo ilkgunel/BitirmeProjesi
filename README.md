@@ -1,0 +1,1 @@
+# JDBC-ile-Oracle-Tablo-Veri-Ekleme
