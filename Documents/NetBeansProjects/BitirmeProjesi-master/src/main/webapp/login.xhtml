@@ -28,6 +28,35 @@
             .ui-button-text-icon-left .ui-button-text {
                 padding: .2em 0.8em .1em 1.7em!important;
             }
+            label {
+                display: inline-block;
+                margin-bottom: 5px;
+                margin-left: 6px;
+                color: #4eb2d5;
+                font-size: 12px;
+            }   
+            .button {
+                -webkit-border-radius: 3px;
+                -moz-border-radius: 3px;
+                border-radius: 3px;
+                display: block;
+                float: right;
+                margin-top: -10px;
+            }
+            .span{
+                margin-top:5px;
+                float:right;
+                font-size: 12px;
+                color: #4eb2d5;
+            }
+            .span:hover{
+                color:red;
+            }
+
+            .span.login-checkbox {
+                float: left;
+                margin-top: 10px;
+            }
         </style>
     </h:head>
 
@@ -89,15 +118,15 @@
                         <div class="field">
                             <h:outputLabel for="j_username">Login Number</h:outputLabel>
                             <p:inputText  id="j_username" value="#{loginController.teacher.teacherLoginNumber}"
-                                          required="true"
+                                          required="true" placeholder="Login Number"
                                           requiredMessage="Username can't be empty!" styleClass="login username-field" />
                         </div> <!-- /field -->
 
                         <div class="field">
                             <h:outputLabel for="j_password">Password</h:outputLabel>
-                            <p:password id="j_password"  
-                                           required="true"
-                                           requiredMessage="Password can't be empty!" styleClass="login password-field"/>
+                            <p:password id="j_password"  placeholder="Password"
+                                        required="true"
+                                        requiredMessage="Password can't be empty!" styleClass="login password-field"/>
                         </div> <!-- /password -->
 
                     </div> <!-- /login-fields -->
@@ -107,10 +136,15 @@
                             <p:selectBooleanCheckbox id="_spring_security_remember_me" styleClass="field login-checkbox"/>
                             <h:outputLabel class="choice" for="_spring_security_remember_me">Keep me signed in</h:outputLabel>
                         </span>
-                        <p:commandButton styleClass="button btn btn-info btn-sm" icon="fa fa-sign-in"
-                                         value="Sign in" style="border-radius: 15px;" ajax="false"
-                                         action="#{loginController.doLogin}"/>
-                    </div> <!-- .actions -->
+                        <span class="span">Forgot your password?</span>
+                    </div>
+
+
+
+                    <p:commandButton styleClass="button btn btn-warning btn-sm" icon="fa fa-sign-in"
+                                     value="Sign in" style="border-radius: 15px;float: right;" ajax="false"
+                                     action="#{loginController.doLogin}"/>
+
                     <h:outputLabel value="#{sessionScope['SPRING_SECURITY_LAST_EXCEPTION'].message}" rendered="#{!empty sessionScope['SPRING_SECURITY_LAST_EXCEPTION'].message}"/>
                 </h:form>
 

@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.application.NavigationHandler;
 import javax.faces.bean.ManagedBean;
@@ -26,6 +27,7 @@ import javax.servlet.ServletResponse;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.bitirmeprojesi.entity.Teacher;
+import org.bitirmeprojesi.service.TeacherOperationsDAOImplService;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -41,6 +43,10 @@ import org.springframework.security.web.WebAttributes;
 public class LoginControllerBean implements Serializable {
 
     private Teacher teacher = new Teacher();
+    private Teacher willFindTeacher = new Teacher();
+
+    @EJB
+    TeacherOperationsDAOImplService teacherOperationsDAOImplService;
 
     public String doLogin() {
         try {
@@ -48,6 +54,9 @@ public class LoginControllerBean implements Serializable {
             ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
             RequestDispatcher dispatcher = ((ServletRequest) context.getRequest())
                     .getRequestDispatcher("/j_spring_security_check");
+
+            willFindTeacher = teacherOperationsDAOImplService.
+                    findTeacherByLoginNumberFromService(teacher.getTeacherLoginNumber());
 
             dispatcher.forward((ServletRequest) context.getRequest(), (ServletResponse) context.getResponse());
             FacesContext.getCurrentInstance().responseComplete();
@@ -64,15 +73,15 @@ public class LoginControllerBean implements Serializable {
     public void authorizedUserControl() {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        
-            Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
+
+        Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
 
         if (roles.contains("ROLE_ADMIN")) {
             NavigationHandler nh = FacesContext.getCurrentInstance().getApplication().getNavigationHandler();
             nh.handleNavigation(FacesContext.getCurrentInstance(), null, "/template/admin_template.xhtml?faces-redirect=true");
 
-        }else if(roles.contains("ROLE_TEACHER")){
-              NavigationHandler nh = FacesContext.getCurrentInstance().getApplication().getNavigationHandler();
+        } else if (roles.contains("ROLE_TEACHER")) {
+            NavigationHandler nh = FacesContext.getCurrentInstance().getApplication().getNavigationHandler();
             nh.handleNavigation(FacesContext.getCurrentInstance(), null, "/template/main_template.xhtml?faces-redirect=true");
         }
     }
@@ -83,6 +92,14 @@ public class LoginControllerBean implements Serializable {
 
     public void setTeacher(Teacher teacher) {
         this.teacher = teacher;
+    }
+
+    public Teacher getWillFindTeacher() {
+        return willFindTeacher;
+    }
+
+    public void setWillFindTeacher(Teacher willFindTeacher) {
+        this.willFindTeacher = willFindTeacher;
     }
 
 }

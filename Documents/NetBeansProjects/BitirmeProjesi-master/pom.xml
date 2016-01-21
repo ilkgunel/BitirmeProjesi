@@ -33,22 +33,21 @@
 
     <dependencies>
         
-        <dependency>
+        <!--<dependency>
             <groupId>com.sun.faces</groupId>
             <artifactId>jsf-api</artifactId>
             <version>2.1.7</version>
+        </dependency>-->
+        <dependency>
+            <groupId>com.sun.faces</groupId>
+            <artifactId>jsf-impl</artifactId>
+            <version>2.2.12</version>
         </dependency>
         
         <dependency>  
             <groupId>org.primefaces.themes</groupId>  
-            <artifactId>bootstrap</artifactId>  
+            <artifactId>ui-lightness</artifactId>  
             <version>1.0.10</version>  
-        </dependency>
-        
-        <dependency>
-            <groupId>com.sun.faces</groupId>
-            <artifactId>jsf-impl</artifactId>
-            <version>2.1.7</version>
         </dependency>
         
         <dependency>
@@ -116,7 +115,7 @@
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
-            <version>6.0</version>
+            <version>7.0</version>
             <scope>provided</scope>
         </dependency>
         

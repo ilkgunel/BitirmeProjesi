@@ -7,12 +7,15 @@
 package org.bitirmeprojesi.dao;
 
 import java.util.List;
+import org.bitirmeprojesi.dto.DTO;
 import org.bitirmeprojesi.entity.Teacher;
 
 /**
  *
- * @author Batuhan
+ * @author Batuhan And İlkay
  */
 public interface TeacherOperationsDAO {
-    List<Teacher> getTeachers();
+	DTO addTeacher(Teacher teacher);
+        List<Teacher> getTeachers();
+        Teacher findTeacherByLoginNumber(String loginNumber);
 }

@@ -32,8 +32,8 @@
                                     <f:selectItem itemLabel="Ders seçiniz" itemValue="-1"/>
                                     <f:selectItems value="#{testControllerBean.testLessonNameList}"
                                                    var="testLessonName" itemLabel="#{testLessonName.label}" itemValue="#{testLessonName.value}" />
-                                    <f:ajax  event="valueChange" listener="#{testControllerBean.refreshTestNameList()}" 
-                                             render="testName"/>
+                                    <p:ajax  event="valueChange" listener="#{testControllerBean.refreshTestNameList()}" 
+                                             update="testName"/>
                                 </p:selectOneMenu>
                             </div> <!-- /field -->
 
@@ -47,8 +47,8 @@
                                     <f:selectItem itemLabel="Test Adı seçiniz" itemValue="-1"/>
                                     <f:selectItems value="#{testControllerBean.testNameList}"
                                                    var="testName" itemLabel="#{testName.label}" itemValue="#{testName.value}" />
-                                    <f:ajax event="valueChange" listener="#{testControllerBean.refreshTestTopicList()}"
-                                            render="testTopic" />
+                                    <p:ajax event="valueChange" listener="#{testControllerBean.refreshTestTopicList()}"
+                                            update="testTopic" />
                                 </p:selectOneMenu>
                             </div> <!-- /field -->
 

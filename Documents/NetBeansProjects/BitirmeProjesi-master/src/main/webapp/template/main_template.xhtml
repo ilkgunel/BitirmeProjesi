@@ -6,7 +6,7 @@
 
     <h:head>
         <meta charset="utf-8"/>
-        <title>Dashboard - Teacher Admin Template</title>
+        <title>Dashboard - Teacher Main Template</title>
         <link href="../resources/css/bootstrap.min.css" rel="stylesheet"/>
         <link href="../resources/css/bootstrap-responsive.min.css" rel="stylesheet"/>
         <link href="../resources/css/font-awesome.css" rel="stylesheet"/>
@@ -23,7 +23,32 @@
             $(document).ready(function() {
                 $.noConflict(true);
             });
-        </script>  
+        </script> 
+
+        <script type="text/javascript">
+            PrimeFaces.locales['tr'] = {
+                closeText: 'kapat',
+                prevText: 'geri',
+                nextText: 'ileri',
+                currentText: 'bugün',
+                monthNames: ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran',
+                    'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'],
+                monthNamesShort: ['Oca', 'Şub', 'Mar', 'Nis', 'May', 'Haz',
+                    'Tem', 'Ağu', 'Eyl', 'Eki', 'Kas', 'Ara'],
+                dayNames: ['Pazar', 'Pazartesi', 'Salı', 'Çarşamba', 'Perşembe', 'Cuma', 'Cumartesi'],
+                dayNamesShort: ['Pz', 'Pt', 'Sa', 'Ça', 'Pe', 'Cu', 'Ct'],
+                dayNamesMin: ['Pz', 'Pt', 'Sa', 'Ça', 'Pe', 'Cu', 'Ct'],
+                weekHeader: 'Hf',
+                firstDay: 1,
+                isRTL: false,
+                showMonthAfterYear: false,
+                yearSuffix: '',
+                month: 'Ay',
+                week: 'Hafta',
+                day: 'Gün',
+                allDayText: 'Tüm Gün'
+            };
+        </script>
 
         <style type="text/css">
             .ui-icon.fa {
@@ -57,12 +82,12 @@
                         <div class="container">
                             <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span
                                     class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
-                            </a><h:outputLink class="brand" value="/template/dashboard.xhtml">Teacher Admin Template </h:outputLink>
+                            </a><h:outputLink class="brand" value="/template/dashboard.xhtml">Teacher Main Template </h:outputLink>
                             <div class="nav-collapse">  
                                 <ul class="nav pull-right">
                                     <li class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i
-                                                class="icon-cogs"></i>&nbsp; <h:outputText value="#{loginController.teacher.teacherLoginNumber}"/> <b class="caret"></b>
+                                                class="icon-cogs"></i>&nbsp; <h:outputText value="#{loginController.willFindTeacher.teacherName} #{loginController.willFindTeacher.teacherSurname}"/> <b class="caret"></b>
                                         </a>
                                         <ul class="dropdown-menu">
                                             <li>

@@ -7,6 +7,7 @@
 package org.bitirmeprojesi.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,6 +20,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -35,7 +38,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Test.findByTestId", query = "SELECT t FROM Test t WHERE t.testId = :testId"),
     @NamedQuery(name = "Test.findByTestLessonName", query = "SELECT t FROM Test t WHERE t.testLessonName = :testLessonName"),
     @NamedQuery(name = "Test.findByTestName", query = "SELECT t FROM Test t WHERE t.testName = :testName"),
-    @NamedQuery(name = "Test.findByTestTopicName", query = "SELECT t FROM Test t WHERE t.testTopicName = :testTopicName")})
+    @NamedQuery(name = "Test.findByTestTopicName", query = "SELECT t FROM Test t WHERE t.testTopicName = :testTopicName"),
+    @NamedQuery(name = "Test.findByTestInsertedDate", query = "SELECT t FROM Test t WHERE t.testInsertedDate = :testInsertedDate"),
+    @NamedQuery(name = "Test.findByTestUpdatedTime", query = "SELECT t FROM Test t WHERE t.testUpdatedTime = :testUpdatedTime")})
 public class Test implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -59,6 +64,14 @@ public class Test implements Serializable {
     @Size(min = 1, max = 255)
     @Column(name = "Test_TopicName")
     private String testTopicName;
+    @Basic(optional = false)
+    @Column(name = "Test_InsertedDate")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date testInsertedDate;
+    @Basic(optional = false)
+    @Column(name = "Test_UpdatedTime")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date testUpdatedTime;
     @JoinColumn(name = "Test_TeacherId", referencedColumnName = "Teacher_TeacherId")
     @ManyToOne
     private Teacher testTeacherId;
@@ -70,12 +83,14 @@ public class Test implements Serializable {
         this.testId = testId;
     }
 
-    public Test(Integer testId, byte[] testContains, String testLessonName, String testName, String testTopicName) {
+    public Test(Integer testId, byte[] testContains, String testLessonName, String testName, String testTopicName, Date testInsertedDate, Date testUpdatedTime) {
         this.testId = testId;
         this.testContains = testContains;
         this.testLessonName = testLessonName;
         this.testName = testName;
         this.testTopicName = testTopicName;
+        this.testInsertedDate = testInsertedDate;
+        this.testUpdatedTime = testUpdatedTime;
     }
 
     public Integer getTestId() {
@@ -116,6 +131,22 @@ public class Test implements Serializable {
 
     public void setTestTopicName(String testTopicName) {
         this.testTopicName = testTopicName;
+    }
+
+    public Date getTestInsertedDate() {
+        return testInsertedDate;
+    }
+
+    public void setTestInsertedDate(Date testInsertedDate) {
+        this.testInsertedDate = testInsertedDate;
+    }
+
+    public Date getTestUpdatedTime() {
+        return testUpdatedTime;
+    }
+
+    public void setTestUpdatedTime(Date testUpdatedTime) {
+        this.testUpdatedTime = testUpdatedTime;
     }
 
     public Teacher getTestTeacherId() {

@@ -1,6 +1,7 @@
 package org.bitirmeprojesi.dao;
 
 import java.util.List;
+import org.bitirmeprojesi.dto.DTO;
 
 import org.bitirmeprojesi.entity.Assignment;
 
@@ -11,6 +12,7 @@ import org.bitirmeprojesi.entity.Assignment;
  */
 
 public interface AssignmentOperationsDAO {
-    void addAssignment(Assignment assignment);
+    DTO addAssignment(Assignment assignment);
     List<Assignment> getAssignments();
+    Assignment findAssignmentByName(String name);
 }

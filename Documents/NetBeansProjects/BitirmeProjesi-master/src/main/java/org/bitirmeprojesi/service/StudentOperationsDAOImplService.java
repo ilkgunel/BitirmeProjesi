@@ -12,13 +12,14 @@ import javax.ejb.Stateful;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.Query;
 import org.bitirmeprojesi.dao.StudentOperationsDAO;
 import org.bitirmeprojesi.dto.DTO;
 import org.bitirmeprojesi.entity.Student;
 
 /**
  *
- * @author Batuhan
+ * @author Batuhan And İlkay
  */
 @Stateless
 public class StudentOperationsDAOImplService implements Serializable {
@@ -30,8 +31,12 @@ public class StudentOperationsDAOImplService implements Serializable {
     public DTO insertStudentFromService(Student student) {
         try 
         {
-            studentOperationsDAO.addStudent(student);
-            return new DTO("Student insert success from service", true);
+           DTO dto = studentOperationsDAO.addStudent(student);
+           if(dto.isSuccess()){
+               return dto;
+           }else{
+               return dto;
+           }
         } catch (Exception e) {
             System.out.println("Error from StudentOperationsDAOImplService:" + e.getLocalizedMessage());
             return new DTO("Student insert fail from service", false);
@@ -47,6 +52,21 @@ public class StudentOperationsDAOImplService implements Serializable {
             System.out.println("Error from StudentOperationsDAOImplService:" + e.getLocalizedMessage());
         }
         return studentList;
+    }
+    
+    public Student findStudentByLoginNumberFromService(Long loginNumber) {
+        Student student = null;
+        try {
+            student = (Student) studentOperationsDAO.findStudentByLoginNumber(loginNumber);
+            if (student != null) {
+                return student;
+            } else {
+                return student;
+            }
+        } catch (Exception e) {
+            System.out.println("Error from StudentOperationsDAOImpl:" + e.getLocalizedMessage());
+            return student;
+        }
     }
 
 }

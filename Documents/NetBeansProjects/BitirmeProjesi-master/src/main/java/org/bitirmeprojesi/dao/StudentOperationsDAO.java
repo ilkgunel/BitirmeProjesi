@@ -7,6 +7,7 @@
 package org.bitirmeprojesi.dao;
 
 import java.util.List;
+import org.bitirmeprojesi.dto.DTO;
 import org.bitirmeprojesi.entity.Student;
 
 /**
@@ -14,6 +15,7 @@ import org.bitirmeprojesi.entity.Student;
  * @author Batuhan
  */
 public interface StudentOperationsDAO {
-    void addStudent(Student student);
+    DTO addStudent(Student student);
     List<Student> getStudents();
+    Student findStudentByLoginNumber(Long loginNumber);
 }

@@ -51,7 +51,10 @@
                                 <h:outputLabel for="studentLoginNumber" value="Student Login Number: (example:123456789)"/>	
                                 <p:inputText  id="studentLoginNumber"  style="width: 100%"
                                               value="#{studentControllerBean.student.studentLoginnumber}"
-                                              placeholder="Login Number"  required="true" requiredMessage="Student Login Number can't be empty" label="use for login" styleClass="login"/>
+                                              placeholder="Login Number"  required="true" requiredMessage="Student Login Number can't be empty" label="use for login"
+                                              styleClass="login">
+                                    <f:validator validatorId="studentLoginNumberValidator"/>
+                                </p:inputText>
                             </div> <!-- /field -->
 
                             <div class="field" style="margin-top: 7px;">

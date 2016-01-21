@@ -26,8 +26,8 @@
                                     <f:selectItem itemLabel="Şehir seçiniz" itemValue="-"/>
                                     <f:selectItems value="#{schoolControllerBean.schoolCityList}" var="city" 
                                                    itemLabel="#{city.label}" itemValue="#{city.value}"/>
-                                    <f:ajax event="valueChange" listener="#{schoolControllerBean.refreshSchoolDistrictList()}" 
-                                            render="schoolDistrictList"/>
+                                    <p:ajax event="valueChange" listener="#{schoolControllerBean.refreshSchoolDistrictList()}" 
+                                            update="schoolDistrictList"/>
                                 </p:selectOneMenu>
                             </div> <!-- /field -->
 
@@ -40,8 +40,8 @@
                                     <f:selectItems value="#{schoolControllerBean.schoolDistrictList}" var="district"
                                                    itemValue="#{district.value}" itemLabel="#{district.label}"/>
 
-                                    <f:ajax event="valueChange" listener="#{schoolControllerBean.refreshSchoolNameList()}" 
-                                            render="schoolCityName"/>
+                                    <p:ajax event="valueChange" listener="#{schoolControllerBean.refreshSchoolNameList()}" 
+                                            update="schoolCityName"/>
                                 </p:selectOneMenu>
                             </div> <!-- /field -->
 
@@ -62,7 +62,7 @@
                                 <h:outputLabel for="schoolFoundationYear" value="School Foundation Year:"/>	
                                 <p:calendar id="schoolFoundationYear" styleClass="input-sm"  value="#{schoolControllerBean.school.schoolfoundationYear}"
                                                     required="true" requiredMessage="School Foundation Year can't be empty!" showOn="button" 
-                                                    pattern="dd-MM-yyyy" mask="true" />
+                                                    pattern="dd-MM-yyyy" mask="true" locale="tr" />
                             </div> <!-- /field -->
 
                         </div> <!-- /login-fields -->

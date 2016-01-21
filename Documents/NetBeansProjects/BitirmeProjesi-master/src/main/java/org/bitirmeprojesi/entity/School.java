@@ -12,8 +12,6 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -44,22 +42,26 @@ public class School implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @NotNull
     @Column(name = "Schoold_Id")
     private Integer schooldId;
     @Basic(optional = false)
+    @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "School_City")
     private String schoolCity;
     @Basic(optional = false)
+    @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "School_District")
     private String schoolDistrict;
     @Basic(optional = false)
+    @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "School_Name")
     private String schoolName;
     @Basic(optional = false)
+    @NotNull
     @Column(name = "School_foundationYear")
     @Temporal(TemporalType.DATE)
     private Date schoolfoundationYear;

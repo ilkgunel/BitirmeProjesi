@@ -7,6 +7,7 @@
 package org.bitirmeprojesi.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -20,6 +21,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -39,7 +42,11 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Teacher.findByPassword", query = "SELECT t FROM Teacher t WHERE t.password = :password"),
     @NamedQuery(name = "Teacher.findByTeacherLoginNumber", query = "SELECT t FROM Teacher t WHERE t.teacherLoginNumber = :teacherLoginNumber"),
     @NamedQuery(name = "Teacher.findByTeacherName", query = "SELECT t FROM Teacher t WHERE t.teacherName = :teacherName"),
-    @NamedQuery(name = "Teacher.findByTeacherSurname", query = "SELECT t FROM Teacher t WHERE t.teacherSurname = :teacherSurname")})
+    @NamedQuery(name = "Teacher.findByTeacherSurname", query = "SELECT t FROM Teacher t WHERE t.teacherSurname = :teacherSurname"),
+    @NamedQuery(name = "Teacher.findByTeacherAge", query = "SELECT t FROM Teacher t WHERE t.teacherAge = :teacherAge"),
+    @NamedQuery(name = "Teacher.findByTeacherBranch", query = "SELECT t FROM Teacher t WHERE t.teacherBranch = :teacherBranch"),
+    @NamedQuery(name = "Teacher.findByTeacherStartedDate", query = "SELECT t FROM Teacher t WHERE t.teacherStartedDate = :teacherStartedDate"),
+    @NamedQuery(name = "Teacher.findByTeacherEndDate", query = "SELECT t FROM Teacher t WHERE t.teacherEndDate = :teacherEndDate")})
 public class Teacher implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -65,6 +72,21 @@ public class Teacher implements Serializable {
     @Size(min = 1, max = 255)
     @Column(name = "Teacher_Surname")
     private String teacherSurname;
+    @Basic(optional = false)
+    @Column(name = "Teacher_Age")
+    private int teacherAge;
+    @Basic(optional = false)
+    @Size(min = 1, max = 255)
+    @Column(name = "Teacher_Branch")
+    private String teacherBranch;
+    @Basic(optional = false)
+    @Column(name = "Teacher_Started_Date")
+    @Temporal(TemporalType.DATE)
+    private Date teacherStartedDate;
+    @Basic(optional = false)
+    @Column(name = "Teacher_End_Date")
+    @Temporal(TemporalType.DATE)
+    private Date teacherEndDate;
     @OneToMany(mappedBy = "testTeacherId")
     private List<Test> testList;
     @JoinColumn(name = "Teacher_SchoolId", referencedColumnName = "Schoold_Id")
@@ -78,12 +100,16 @@ public class Teacher implements Serializable {
         this.teacherTeacherId = teacherTeacherId;
     }
 
-    public Teacher(Integer teacherTeacherId, String password, String teacherLoginNumber, String teacherName, String teacherSurname) {
+    public Teacher(Integer teacherTeacherId, String password, String teacherLoginNumber, String teacherName, String teacherSurname, int teacherAge, String teacherBranch, Date teacherStartedDate, Date teacherEndDate) {
         this.teacherTeacherId = teacherTeacherId;
         this.password = password;
         this.teacherLoginNumber = teacherLoginNumber;
         this.teacherName = teacherName;
         this.teacherSurname = teacherSurname;
+        this.teacherAge = teacherAge;
+        this.teacherBranch = teacherBranch;
+        this.teacherStartedDate = teacherStartedDate;
+        this.teacherEndDate = teacherEndDate;
     }
 
     public Integer getTeacherTeacherId() {
@@ -132,6 +158,38 @@ public class Teacher implements Serializable {
 
     public void setTeacherSurname(String teacherSurname) {
         this.teacherSurname = teacherSurname;
+    }
+
+    public int getTeacherAge() {
+        return teacherAge;
+    }
+
+    public void setTeacherAge(int teacherAge) {
+        this.teacherAge = teacherAge;
+    }
+
+    public String getTeacherBranch() {
+        return teacherBranch;
+    }
+
+    public void setTeacherBranch(String teacherBranch) {
+        this.teacherBranch = teacherBranch;
+    }
+
+    public Date getTeacherStartedDate() {
+        return teacherStartedDate;
+    }
+
+    public void setTeacherStartedDate(Date teacherStartedDate) {
+        this.teacherStartedDate = teacherStartedDate;
+    }
+
+    public Date getTeacherEndDate() {
+        return teacherEndDate;
+    }
+
+    public void setTeacherEndDate(Date teacherEndDate) {
+        this.teacherEndDate = teacherEndDate;
     }
 
     @XmlTransient

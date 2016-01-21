@@ -1,25 +1,30 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <groupId>com.mycompany</groupId>
-    <artifactId>JDBC_Baglanti</artifactId>
+    <artifactId>JDBC-ile-Oracle-Tablo-Olusturma</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
+
+    <name>JDBC-ile-Oracle-Tablo-Olusturma</name>
+    <url>http://maven.apache.org</url>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <jdbc.version>10.2.0.4.0</jdbc.version>
     </properties>
     
     <dependencies>
         <dependency>
             <groupId>com.oracle</groupId>
             <artifactId>ojdbc14</artifactId>
-            <version>10.2.0.4.0</version>
+            <version>${jdbc.version}</version>
         </dependency>
     </dependencies>
+      
     
-    <repositories>
+    <repositories> 
         <repository>
             <id>mesir-repo</id>
             <url>http://http://mesir.googlecode.com/svn/trunk/mavenrepo</url>

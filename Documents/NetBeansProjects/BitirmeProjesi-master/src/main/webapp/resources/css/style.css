@@ -9,7 +9,7 @@ Bootstrap Admin Template by EGrappler.com
 */
 
 body {
-	background: #f9f6f1;
+	background: white;
 	font: 13px/1.7em 'Open Sans';
 }
     
@@ -72,7 +72,7 @@ textarea {
 .navbar-inner {
 	padding: 7px 0;
 	
-	background: #00ba8b !important;
+	background: #f6a828 !important;
 	
 	-moz-border-radius: 0;
 	-webkit-border-radius: 0;
@@ -152,17 +152,14 @@ textarea {
 
 .subnavbar .container > ul > li > a {
 	display: block;
-	
 	height: 100%;
 	padding: 0 15px;
-	
 	font-size: 12px;
 	font-weight: bold;
-	color: #b2afaa;
 }
 
 .subnavbar .container > ul > li > a:hover {
-	color: #888;
+	color: #f6a828;
 	text-decoration: none;
 }
 

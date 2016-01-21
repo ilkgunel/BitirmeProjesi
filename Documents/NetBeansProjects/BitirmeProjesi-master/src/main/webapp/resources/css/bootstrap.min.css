@@ -103,7 +103,7 @@ body {
     background-color: #ffffff;
 }
 a {
-    color: #19bc9c;
+    color: #1c94c4;
     text-decoration: none;
 }
 a:hover {
@@ -111,7 +111,7 @@ a:hover {
     text-decoration: underline;
 }
 .row {
-    margin-left: -30px;*zoom:1;
+    margin-left: -50px;*zoom:1;
 }
 .row:before, .row:after {
     display: table;
@@ -128,7 +128,7 @@ a:hover {
     width: 940px;
 }
 .span12 {
-    width: 940px;
+    width: 1045px;
 }
 .span11 {
     width: 860px;

@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.AbstractList;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -66,17 +67,25 @@ public class TestControllerBean implements Serializable {
             fileContent = new byte[1024];
             test.setTestContains(fileContent);
         }
+        test.setTestInsertedDate(new Date());
+        test.setTestUpdatedTime(new Date());
         DTO dto = testOperationsDAOImplService.insertTestFromService(test);
+        try{
         if (dto.isSuccess()) {
             test = new Test();
             setTest(test);
             testList = testOperationsDAOImplService.getTestListFromService();
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_INFO, dto.getMessage(), null));
-            return "/testWorks/testList.xhtml?faces-redirect=true";
+            return "";
         } else {
              FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_WARN, dto.getMessage(), null));
+            return "";
+        }
+        }catch(Exception e){
+             FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getLocalizedMessage(), null));
             return "";
         }
     }

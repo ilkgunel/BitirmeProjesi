@@ -9,7 +9,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Named;
+import javax.persistence.Query;
 import org.bitirmeprojesi.dao.StudentOperationsDAO;
+import org.bitirmeprojesi.dto.DTO;
 import org.bitirmeprojesi.entity.Student;
 
 /**
@@ -17,15 +19,16 @@ import org.bitirmeprojesi.entity.Student;
  * @author Batuhan
  */
 @Named("studentOperationsDAO")
-public class StudentOperationsDAOImpl extends GenericJPADAOImpl<Student, Serializable> implements StudentOperationsDAO 
-{
+public class StudentOperationsDAOImpl extends GenericJPADAOImpl<Student, Serializable> implements StudentOperationsDAO {
 
     @Override
-    public void addStudent(Student student) {
+    public DTO addStudent(Student student) {
         try {
             this.create(student);
+            return new DTO("Success", true);
         } catch (Exception e) {
             System.out.println("Error from StudentOperationsDAOImpl:" + e.getLocalizedMessage());
+            return new DTO("Fail", false);
         }
     }
 
@@ -34,11 +37,34 @@ public class StudentOperationsDAOImpl extends GenericJPADAOImpl<Student, Seriali
         List<Student> studentList = new ArrayList<>();
         try {
             studentList = this.readAll();
-            return studentList;
+            if (studentList != null) {
+                return studentList;
+            } else {
+                return studentList;
+            }
         } catch (Exception e) {
             System.out.println("Error from StudentOperationsDAOImpl:" + e.getLocalizedMessage());
+            return studentList;
         }
-        return studentList;
+    }
+
+    @Override
+    public Student findStudentByLoginNumber(Long loginNumber) {
+        Student student = null;
+        Query query = this.entityManager.createNamedQuery("Student.findByStudentLoginnumber");
+        try {
+            query.setParameter("studentLoginnumber", loginNumber);
+            student = (Student) query.getSingleResult();
+            if (student != null) {
+                return student;
+            } else {
+                System.out.println("İnfo from StudentOperationsDAOImpl: Öğrenci giriş numarası mevcut değil,eklenebilir.");
+                return student;
+            }
+        } catch (Exception e) {
+            System.out.println("Error from StudentOperationsDAOImpl:" + e.getLocalizedMessage());
+            return student;
+        }
     }
 
 }

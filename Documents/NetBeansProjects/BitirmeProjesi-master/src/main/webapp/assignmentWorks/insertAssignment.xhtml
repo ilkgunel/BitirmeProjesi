@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
@@ -19,7 +20,10 @@
                                 <h:outputLabel for="assignmentName" value="Assignment Name:"/>
                                 <p:inputText id="assignmentName" style="width: 100%"
                                              value="#{assignmentController.assignmentObject.assignmentName}"
-                                             required="true" requiredMessage="Assignment Name can't be empty" placeholder="Name" styleClass="login"/>
+                                             required="true" requiredMessage="Assignment Name can't be empty"
+                                             placeholder="Name" styleClass="login">
+                                    <f:validator validatorId="assignmentNameValidator"/>
+                                </p:inputText>
                             </div> <!-- /field -->
 
                             <div class="field" style="margin-top: 7px;">
