@@ -33,10 +33,11 @@ public class CreateTableTest {
                 + "user_last_name VARCHAR2(20),"
                 + "created_date DATE"
                 + ")";
+        
         Connection connection = null;
-        
+
         PreparedStatement preparedStatement = null;
-        
+
         try {
             connection = JDBCUtil.getConnection();
             if (connection != null) {
