@@ -35,9 +35,8 @@ public class CreateTableTest {
                 + ")";
         
         Connection connection = null;
-
         PreparedStatement preparedStatement = null;
-
+        
         try {
             connection = JDBCUtil.getConnection();
             if (connection != null) {
