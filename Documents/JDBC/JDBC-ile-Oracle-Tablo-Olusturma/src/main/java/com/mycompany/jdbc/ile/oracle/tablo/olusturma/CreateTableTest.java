@@ -35,6 +35,7 @@ public class CreateTableTest {
                 + ")";
         
         Connection connection = null;
+        
         PreparedStatement preparedStatement = null;
         
         try {
