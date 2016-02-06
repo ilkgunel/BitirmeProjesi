@@ -15,7 +15,6 @@ public class CreateTableTest {
         try {
             Boolean test = createTableTest();
             if (test) {
-                
                 System.out.println("Table is created successfully");
             } else {
                 System.out.println("Table is not created,fail");
