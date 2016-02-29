@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../template/admin_template.xhtml">
+
+
+
+            <ui:define name="content">
+
+                <div class="span12" style="margin-left: 30px">
+                    <div class="widget widget-table action-table">
+                        <div class="widget-header"> <i class="icon-th-list"></i>
+                            <h3>School Table</h3>
+                        </div>
+                        <!-- /widget-header -->
+                        <div class="widget-content">
+                            <p:dataTable var="school" value="#{schoolControllerBean.schoolList}" rows="3"
+                                         paginator="true" draggableColumns="true"
+                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                         rowsPerPageTemplate="5,10,15">
+                                <p:column headerText="School City">
+                                    <h:outputText value="#{school.schoolCity}" />
+                                </p:column>
+
+                                <p:column headerText="School District">
+                                    <h:outputText value="#{school.schoolDistrict}" />
+                                </p:column>
+
+                                <p:column headerText="School Name" width="50px">
+                                    <h:outputText value="#{school.schoolName}" />
+                                </p:column>
+
+                                <p:column headerText="School Foundation Year">
+                                    <h:outputText value="#{school.schoolfoundationYear}">
+                                        <f:convertDateTime type="date"  locale="tr" dateStyle="full"/>
+                                    </h:outputText>
+                                </p:column>
+
+ 
+                            </p:dataTable>
+
+                        </div>
+                        <!-- /widget-content --> 
+                    </div>
+
+                </div>
+            </ui:define>
+
+
+
+        </ui:composition>
+
+    </body>
+</html>

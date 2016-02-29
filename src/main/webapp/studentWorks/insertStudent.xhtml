@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:body>
+
+        <ui:composition template="./../template/main_template.xhtml">
+
+
+            <ui:define name="content">
+                <h:form>
+                    <div class="span12">
+                        <p:messages showDetail="false"/>
+                        <div class="login-fields">   
+                            <div class="field" style="margin-top: 5px">
+                                <h:outputLabel for="studentName" value="Student Name:"/>
+                                <p:inputText id="studentName" style="width: 100%"
+                                             value="#{studentControllerBean.student.studentName}"
+                                             required="true" requiredMessage="Student Name can't be empty" placeholder="Name" styleClass="login"/>
+                            </div> <!-- /field -->
+
+                            <div class="field" style="margin-top: 7px;">
+                                <h:outputLabel for="studentSurname" value="Student Surname:"/>	
+                                <p:inputText  id="studentSurname" style="width: 100%"
+                                              value="#{studentControllerBean.student.studentSurname}"
+                                              placeholder="Surname"  required="true" requiredMessage="Student Surname can't be empty" styleClass="login"/>
+                            </div> <!-- /field -->
+
+
+                            <div class="field" style="margin-top: 7px;">
+                                <h:outputLabel for="studentClassname" value="Student Class:"/>	
+                                <p:inputText  id="studentClassname" style="width: 100%"
+                                              value="#{studentControllerBean.student.studentClassname}"
+                                              placeholder="Class"  required="true" 
+                                              requiredMessage="Student Class can't be empty" styleClass="login"/>
+                            </div> <!-- /field -->
+
+                            <div class="field" style="margin-top: 7px;">
+                                <h:outputLabel for="studentNumber" value="Student Number:"/>	
+                                <p:inputText  id="studentNumber"  style="width: 100%"
+                                              value="#{studentControllerBean.student.studentStudentNumber}"
+                                              placeholder="Number"  required="true" requiredMessage="Student Number can't be empty" styleClass="login"/>
+                            </div> <!-- /field -->
+
+                            <div class="field" style="margin-top: 7px;">
+                                <h:outputLabel for="studentLoginNumber" value="Student Login Number: (example:123456789)"/>	
+                                <p:inputText  id="studentLoginNumber"  style="width: 100%"
+                                              value="#{studentControllerBean.student.studentLoginnumber}"
+                                              placeholder="Login Number"  required="true" requiredMessage="Student Login Number can't be empty" label="use for login"
+                                              styleClass="login">
+                                    <f:validator validatorId="studentLoginNumberValidator"/>
+                                </p:inputText>
+                            </div> <!-- /field -->
+
+                            <div class="field" style="margin-top: 7px;">
+                                <h:outputLabel for="studentLoginPassword" value="Student Password:"/>	
+                                <p:inputText  id="studentLoginPassword"   style="width: 100%"
+                                              value="#{studentControllerBean.student.studentLoginpassword}"
+                                              placeholder="Password"  required="true" requiredMessage="Student Password can't be empty" styleClass="login"/>
+                            </div> <!-- /field -->
+
+
+                            <div class="field" style="margin-top: 7px;">
+                                <h:outputLabel for="studentTeacherId" value="Student Teacher:"/>	
+                                <p:selectOneMenu  id="studentTeacherId" effect="fade"
+                                                  value="#{studentControllerBean.student.studentTeacherId}"
+                                                  converter="studentTeacherIdConverter" style="width: 100%" 
+                                                  required="true" requiredMessage="Student Teacher can't be empty" styleClass="login">
+                                    <f:selectItems value="#{studentControllerBean.teacherList}"
+                                                   var="teacher" itemLabel="#{teacher.teacherName}" itemValue="#{teacher}"/>
+                                </p:selectOneMenu>
+                            </div> <!-- /field -->
+
+
+                        </div> <!-- /login-fields -->
+
+                        <div class="login-actions" style="margin-top: 10px;float:right;">
+                            <p:commandButton styleClass="button btn btn-info btn-sm" ajax="false"
+                                             value="Save" update="messages"
+                                             action="#{studentControllerBean.insertStudentFromBean()}" icon="fa fa-plus">
+                            </p:commandButton>
+
+                        </div> <!-- .actions -->
+                    </div>
+
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </h:body>
+</html>

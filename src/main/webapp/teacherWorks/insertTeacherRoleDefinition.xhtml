@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../template/admin_template.xhtml">
+
+            <ui:define name="content">
+                <h:form>
+                    <div class="span12">
+                        <h1>Teacher Role Definition</h1>	
+                        <p:messages showDetail="false"/>
+                        <div class="login-fields">   
+
+                            <div class="field" style="margin-top: 7px;">
+                                <h:outputLabel for="teacherRoleLoginNumber" value="Teacher Role Login Number:"/>	
+                                <p:selectOneMenu id="teacherRoleLoginNumber"  
+                                                 value="#{teacherRoleDefinitionControllerBean.teacherroles.loginnumber}" 
+                                                 effect="fade" style="width: 100%"
+                                                 required="true" requiredMessage="Teacher Role Login Number: Field Is Required!">
+                                    <f:selectItems value="#{teacherRoleDefinitionControllerBean.teacherList}" var="teacher"
+                                                   itemLabel="#{teacher.teacherName} #{teacher.teacherSurname}"
+                                                   itemValue="#{teacher.teacherLoginNumber}"/>     
+                                    <f:validator validatorId="teacherRoleLoginNumberValidator"/>
+                                </p:selectOneMenu>
+                            </div> <!-- /field -->
+
+                            <div class="field" style="margin-top: 7px;">
+                                <h:outputLabel for="teacherRole" value="Teacher Role:"/>	
+                                <p:selectOneMenu id="teacherRole" style="width: 100%"
+                                                 value="#{teacherRoleDefinitionControllerBean.teacherroles.role}" 
+                                                 required="true" requiredMessage="Teacher Role Field Is Required!">
+                                    <f:selectItem itemLabel="Bir Role seçiniz" itemValue="-1"/>
+                                    <f:selectItems value="#{teacherRoleDefinitionControllerBean.roleList}"
+                                                   var="role" itemLabel="#{role.label}" itemValue="#{role.value}"/>
+                                </p:selectOneMenu>
+                            </div> <!-- /field -->
+
+
+                        </div> <!-- /login-fields -->
+
+                        <div class="login-actions" style="margin-top: 10px;float:right;">
+                            <p:commandButton styleClass="button btn btn-info btn-sm" ajax="false"
+                                             value="Save" 
+                                             action="#{teacherRoleDefinitionControllerBean.addTeacherRoleFromBean()}" 
+                                             icon="fa fa-plus">
+                            </p:commandButton>
+
+                        </div> <!-- .actions -->
+                    </div>
+
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Öğretmen Listeleme Sayfası</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="./../template/admin_template.xhtml">
+            <ui:define name="content">
+                <div class="span12" style="margin-left: 30px">
+                    <div class="widget widget-table action-table">
+                        <div class="widget-header"> <i class="icon-th-list"></i>
+                            <h3>Teacher Table</h3>
+                        </div>
+                        <!-- /widget-header -->
+                        <div class="widget-content">
+                            <p:dataTable var="teacher" value="#{teacherControllerBean.teacherList}" rows="3"
+                                         paginator="true" draggableColumns="true"
+                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                         rowsPerPageTemplate="5,10,15">
+                                <p:column headerText="Teacher Name">
+                                    <h:outputText value="#{teacher.teacherName}" />
+                                </p:column>
+
+                                <p:column headerText="Teacher Surname">
+                                    <h:outputText value="#{teacher.teacherSurname}" />
+                                </p:column>
+
+                                <p:column headerText="Teacher Age">
+                                    <h:outputText value="#{teacher.teacherAge}" />
+                                </p:column>
+
+                                <p:column headerText="Teacher School Name" width="50px">
+                                    <h:outputText value="#{teacher.teacherSchoolId.schoolName}" />
+                                </p:column>
+
+                                <p:column headerText="Teacher Login Number">
+                                    <h:outputText value="#{teacher.teacherLoginNumber}" />
+                                </p:column>
+
+                                <p:column headerText="Teacher Branch">
+                                    <h:outputText value="#{teacher.teacherBranch}" />
+                                </p:column>
+
+                                <p:column headerText="Teacher Start Date">
+                                    <h:outputText 
+                                        value="#{teacher.teacherStartedDate}">
+                                        <f:convertDateTime type="date"  locale="tr_TR" dateStyle="full"/>
+                                    </h:outputText>
+                                </p:column>
+
+                                <p:column headerText="Teacher End Date"> 
+                                    <h:form  rendered="#{teacher.teacherEndDate.year gt 70}">
+                                        <h:outputText
+                                            value="#{teacher.teacherEndDate}">
+                                            <f:convertDateTime type="date" locale="tr" dateStyle="full"/>
+                                        </h:outputText>
+                                    </h:form>
+                                    <h:form rendered="#{teacher.teacherEndDate.year eq 70}">
+                                        <h:outputText
+                                            value="Çalışmaya Devam ediyor"/>
+                                    </h:form>
+                                </p:column>
+
+                                <p:column headerText="Is Teacher Enabled?">
+                                    <h:outputText value="#{teacher.enabled}" />
+                                </p:column>
+                            </p:dataTable>
+
+                        </div>
+                        <!-- /widget-content --> 
+                    </div>
+
+                </div>
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

@@ -1,1 +1,0 @@
-# JDBC-ile-Oracle-Tablo-Olusturma
