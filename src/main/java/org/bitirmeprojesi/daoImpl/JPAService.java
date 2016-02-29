@@ -116,12 +116,26 @@ public abstract class JPAService<T, PK extends Serializable> {
         return -1;
     }
 
-    public <T> List<T> readAllUsingCriteriaAPI(Class<T> classz) {
+    public <T> List<T> readAllASCUsingCriteriaAPI(Class<T> classz) {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<T> criteriaQuery = (CriteriaQuery<T>) criteriaBuilder.createQuery();
         Root<T> from = criteriaQuery.from(classz);
 
         criteriaQuery.select(from);
+        criteriaQuery.orderBy(criteriaBuilder.asc(from.get("id")));
+        TypedQuery<T> typedQuery = entityManager.createQuery(criteriaQuery);
+        List<T> resultList = typedQuery.getResultList();
+
+        return resultList;
+    }
+    
+     public <T> List<T> readAllDESCUsingCriteriaAPI(Class<T> classz) {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<T> criteriaQuery = (CriteriaQuery<T>) criteriaBuilder.createQuery();
+        Root<T> from = criteriaQuery.from(classz);
+
+        criteriaQuery.select(from);
+        criteriaQuery.orderBy(criteriaBuilder.desc(from.get("id")));
         TypedQuery<T> typedQuery = entityManager.createQuery(criteriaQuery);
         List<T> resultList = typedQuery.getResultList();
 
