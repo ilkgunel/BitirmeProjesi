@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package org.bitirmeprojesi.utils;
 
 import java.security.MessageDigest;
@@ -14,8 +13,15 @@ import java.security.NoSuchAlgorithmException;
  * @author Batuhan
  */
 public class StringUtil {
-    
-     public static String encryptPassword(String password) throws NoSuchAlgorithmException {
+
+    public static boolean isNullOrEmpty(String obj) {
+        if (obj.equals("") && obj.isEmpty()) {
+            return true;
+        }
+        return false;
+    }
+
+    public static String encryptPassword(String password) throws NoSuchAlgorithmException {
         MessageDigest messageDigestNesnesi = MessageDigest.getInstance("MD5");
         messageDigestNesnesi.update(password.getBytes());
         byte messageDigestDizisi[] = messageDigestNesnesi.digest();

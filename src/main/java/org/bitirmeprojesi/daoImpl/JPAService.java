@@ -39,7 +39,10 @@ public abstract class JPAService<T, PK extends Serializable> {
         this.entityClass = (Class<T>) genericSuperClass.getActualTypeArguments()[0];
     }
 
-    public T create(T t) {
+    public T create(T t) throws Exception {
+        if (isCachable(t)) {
+            evictCacheForEntity(t);
+        }
         this.entityManager.persist(t);
         this.entityManager.flush();
         return t;
@@ -52,31 +55,35 @@ public abstract class JPAService<T, PK extends Serializable> {
         return t;
     }
 
-    public T update(T t) {
+    public T update(T t) throws Exception {
+        if (isCachable(t)) {
+            evictCacheForEntity(t);
+        }
         this.entityManager.merge(t);
         this.entityManager.flush();
         return t;
     }
 
-    public T delete(T t) {
+    public T delete(T t) throws Exception {
+        if (isCachable(t)) {
+            evictCacheForEntity(t);
+        }
         t = this.entityManager.merge(t);
         this.entityManager.remove(t);
         this.entityManager.flush();
         return t;
     }
 
-    public boolean isCachable(T t, Integer id) throws Exception {
+    public boolean isCachable(T t) throws Exception {
         Field field = this.entityClass.getField("id");
         this.id = field.getInt(this.entityClass);
-        
+
         Cache cache = getEntityManagerFactory().getCache();
         return cache.contains(this.entityClass, id);
     }
-    
-    
-    
-    public void evictCacheForEntity(){
-        getEntityManagerFactory().getCache().evict(this.entityClass);
+
+    public void evictCacheForEntity(T t) {
+        getEntityManagerFactory().getCache().evict(t.getClass());
     }
 
     public void evictAllCache() {
@@ -128,8 +135,8 @@ public abstract class JPAService<T, PK extends Serializable> {
 
         return resultList;
     }
-    
-     public <T> List<T> readAllDESCUsingCriteriaAPI(Class<T> classz) {
+
+    public <T> List<T> readAllDESCUsingCriteriaAPI(Class<T> classz) {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<T> criteriaQuery = (CriteriaQuery<T>) criteriaBuilder.createQuery();
         Root<T> from = criteriaQuery.from(classz);
