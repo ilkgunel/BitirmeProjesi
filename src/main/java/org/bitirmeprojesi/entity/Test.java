@@ -3,77 +3,82 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package org.bitirmeprojesi.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import org.eclipse.persistence.annotations.Cache;
+import org.eclipse.persistence.annotations.CacheCoordinationType;
 import org.eclipse.persistence.annotations.CacheType;
-import org.eclipse.persistence.config.CacheIsolationType;
+import org.eclipse.persistence.annotations.ExistenceChecking;
+import org.eclipse.persistence.annotations.ExistenceType;
 
 /**
  *
  * @author Batuhan
  */
 @Entity
-@Table(name = "test")
+@Table(name = "test", catalog = "e_odev", schema = "")
 @XmlRootElement
 @Cache(
-        type = CacheType.SOFT_WEAK,
-        size = 64000,
-        isolation = CacheIsolationType.SHARED,
-        disableHits = true,
-        alwaysRefresh = false,
-        expiry = 36000000 //2 minutes
+        type = CacheType.SOFT, // Cache everything until the JVM decides memory is low.
+        size = 64000, // Use 64,000 as the initial cache size.
+        expiry = 36000000, // 10 minutes
+        coordinationType = CacheCoordinationType.INVALIDATE_CHANGED_OBJECTS // if cache coordination is used, only send invalidation messages.
 )
+@Cacheable(true)
+@ExistenceChecking(ExistenceType.CHECK_CACHE)
 @NamedQueries({
     @NamedQuery(name = "Test.findAll", query = "SELECT t FROM Test t"),
+    @NamedQuery(name = "Test.findById", query = "SELECT t FROM Test t WHERE t.id = :id"),
+    @NamedQuery(name = "Test.findByTestInsertedDate", query = "SELECT t FROM Test t WHERE t.testInsertedDate = :testInsertedDate"),
     @NamedQuery(name = "Test.findByTestLessonName", query = "SELECT t FROM Test t WHERE t.testLessonName = :testLessonName"),
     @NamedQuery(name = "Test.findByTestName", query = "SELECT t FROM Test t WHERE t.testName = :testName"),
     @NamedQuery(name = "Test.findByTestTopicName", query = "SELECT t FROM Test t WHERE t.testTopicName = :testTopicName"),
-    @NamedQuery(name = "Test.findByTestInsertedDate", query = "SELECT t FROM Test t WHERE t.testInsertedDate = :testInsertedDate"),
     @NamedQuery(name = "Test.findByTestUpdatedTime", query = "SELECT t FROM Test t WHERE t.testUpdatedTime = :testUpdatedTime")})
 public class Test extends BasePersistenceObject implements Serializable {
+
     private static final long serialVersionUID = 1L;
 
-    @Basic(optional = false)
     @Lob
     @Column(name = "Test_Contains")
     private byte[] testContains;
-    @Basic(optional = false)
-    @Size(min = 1, max = 255)
-    @Column(name = "Test_LessonName")
-    private String testLessonName;
-    @Basic(optional = false)
-    @Size(min = 1, max = 255)
-    @Column(name = "Test_Name")
-    private String testName;
-    @Basic(optional = false)
-    @Size(min = 1, max = 255)
-    @Column(name = "Test_TopicName")
-    private String testTopicName;
-    @Basic(optional = false)
     @Column(name = "Test_InsertedDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date testInsertedDate;
-    @Basic(optional = false)
+    @Size(max = 255)
+    @Column(name = "Test_LessonName")
+    private String testLessonName;
+    @Size(max = 255)
+    @Column(name = "Test_Name")
+    private String testName;
+    @Size(max = 255)
+    @Column(name = "Test_TopicName")
+    private String testTopicName;
     @Column(name = "Test_UpdatedTime")
     @Temporal(TemporalType.TIMESTAMP)
     private Date testUpdatedTime;
+    @OneToMany(mappedBy = "sATestId")
+    private List<StudentAssesment> studentAssesmentList;
     @JoinColumn(name = "Test_TeacherId", referencedColumnName = "id")
     @ManyToOne
     private Teacher testTeacherId;
@@ -81,20 +86,19 @@ public class Test extends BasePersistenceObject implements Serializable {
     public Test() {
     }
 
-    public Test(Integer testId) {
-        super(testId);
+    public Test(Integer id) {
+        super(id);
     }
 
-    public Test(byte[] testContains, String testLessonName, String testName, String testTopicName, Date testInsertedDate, Date testUpdatedTime) {
-        this.testContains = testContains;
-        this.testLessonName = testLessonName;
-        this.testName = testName;
-        this.testTopicName = testTopicName;
-        this.testInsertedDate = testInsertedDate;
-        this.testUpdatedTime = testUpdatedTime;
+    @Override
+    public void setId(Integer id) {
+        this.id = id; //To change body of generated methods, choose Tools | Templates.
     }
 
-
+    @Override
+    public Integer getId() {
+        return this.id;
+    }
 
     public byte[] getTestContains() {
         return testContains;
@@ -102,6 +106,14 @@ public class Test extends BasePersistenceObject implements Serializable {
 
     public void setTestContains(byte[] testContains) {
         this.testContains = testContains;
+    }
+
+    public Date getTestInsertedDate() {
+        return testInsertedDate;
+    }
+
+    public void setTestInsertedDate(Date testInsertedDate) {
+        this.testInsertedDate = testInsertedDate;
     }
 
     public String getTestLessonName() {
@@ -128,20 +140,21 @@ public class Test extends BasePersistenceObject implements Serializable {
         this.testTopicName = testTopicName;
     }
 
-    public Date getTestInsertedDate() {
-        return testInsertedDate;
-    }
-
-    public void setTestInsertedDate(Date testInsertedDate) {
-        this.testInsertedDate = testInsertedDate;
-    }
-
     public Date getTestUpdatedTime() {
         return testUpdatedTime;
     }
 
     public void setTestUpdatedTime(Date testUpdatedTime) {
         this.testUpdatedTime = testUpdatedTime;
+    }
+
+    @XmlTransient
+    public List<StudentAssesment> getStudentAssesmentList() {
+        return studentAssesmentList;
+    }
+
+    public void setStudentAssesmentList(List<StudentAssesment> studentAssesmentList) {
+        this.studentAssesmentList = studentAssesmentList;
     }
 
     public Teacher getTestTeacherId() {
@@ -151,4 +164,30 @@ public class Test extends BasePersistenceObject implements Serializable {
     public void setTestTeacherId(Teacher testTeacherId) {
         this.testTeacherId = testTeacherId;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (super.getId() != null ? super.getId().hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Test)) {
+            return false;
+        }
+        Test other = (Test) object;
+        if ((super.getId() == null && other.getId() != null) || (super.getId() != null && !super.getId().equals(other.getId()))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "org.bitirmeprojesi.entity.Test[ id=" + super.getId() + " ]";
+    }
+
 }

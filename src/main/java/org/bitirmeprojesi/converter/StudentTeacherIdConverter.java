@@ -16,7 +16,7 @@ import org.bitirmeprojesi.entity.Teacher;
  *
  * @author Batuhan
  */
-@FacesConverter(forClass = Student.class,value = "studentTeacherIdConverter")
+@FacesConverter(value = "studentTeacherIdConverter")
 public class StudentTeacherIdConverter implements Converter {
 
     @Override
@@ -36,7 +36,7 @@ public class StudentTeacherIdConverter implements Converter {
         }
 
         Teacher teacher = (Teacher) o;
-        String teacherId = teacher.getId().toString();
+        String teacherId = String.valueOf(teacher.getId());
         if(teacherId != null){
         return teacherId;
         }

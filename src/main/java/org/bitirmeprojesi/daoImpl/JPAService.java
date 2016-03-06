@@ -29,7 +29,6 @@ import javax.persistence.criteria.Root;
 public abstract class JPAService<T, PK extends Serializable> {
 
     protected Class<T> entityClass;
-    protected Integer id;
 
     @PersistenceContext
     protected EntityManager entityManager;
@@ -40,9 +39,6 @@ public abstract class JPAService<T, PK extends Serializable> {
     }
 
     public T create(T t) throws Exception {
-        if (isCachable(t)) {
-            evictCacheForEntity(t);
-        }
         this.entityManager.persist(t);
         this.entityManager.flush();
         return t;
@@ -56,9 +52,6 @@ public abstract class JPAService<T, PK extends Serializable> {
     }
 
     public T update(T t) throws Exception {
-        if (isCachable(t)) {
-            evictCacheForEntity(t);
-        }
         this.entityManager.merge(t);
         this.entityManager.flush();
         return t;
@@ -75,8 +68,10 @@ public abstract class JPAService<T, PK extends Serializable> {
     }
 
     public boolean isCachable(T t) throws Exception {
-        Field field = this.entityClass.getField("id");
-        this.id = field.getInt(this.entityClass);
+        Integer id = null;
+        Field field = this.entityClass.getSuperclass().getField("id");
+        field.setAccessible(true);
+        id = field.getInt(this.entityClass);
 
         Cache cache = getEntityManagerFactory().getCache();
         return cache.contains(this.entityClass, id);
@@ -147,6 +142,10 @@ public abstract class JPAService<T, PK extends Serializable> {
         List<T> resultList = typedQuery.getResultList();
 
         return resultList;
+    }
+
+    public void close() {
+        getEntityManager().close();
     }
 
 }

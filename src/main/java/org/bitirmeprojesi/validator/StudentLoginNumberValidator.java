@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package org.bitirmeprojesi.validator;
 
+import java.math.BigInteger;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
@@ -21,21 +21,20 @@ import org.bitirmeprojesi.service.StudentOperationsDAOImplService;
  * @author Batuhan
  */
 @FacesValidator("studentLoginNumberValidator")
-public class StudentLoginNumberValidator implements Validator{
+public class StudentLoginNumberValidator implements Validator {
 
     @EJB
     StudentOperationsDAOImplService studentOperationsDAOImplService;
-    
+
     @Override
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
-        Student student = (Student) studentOperationsDAOImplService.findStudentByLoginNumberFromService((Long)value);
-        if(student!=null){
-            FacesMessage msg = new FacesMessage(student.getStudentLoginnumber()+"'a sahip Öğrenci sistemde bulunmaktadır"
+        Student student = (Student) studentOperationsDAOImplService.findStudentByLoginNumberFromService((BigInteger) value);
+        if (student != null) {
+            FacesMessage msg = new FacesMessage(student.getStudentLoginnumber() + "'a sahip Öğrenci sistemde bulunmaktadır"
                     + ",Lütfen başka bir Giriş Numarası eklemeyi deneyin.");
             throw new ValidatorException(msg);
         }
-    
+
     }
-    
-    
+
 }

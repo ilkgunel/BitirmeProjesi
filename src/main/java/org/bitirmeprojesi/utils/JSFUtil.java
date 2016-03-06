@@ -11,6 +11,7 @@ import com.sun.faces.context.RequestMap;
 import com.sun.faces.context.SessionMap;
 import java.io.IOException;
 import java.util.Map;
+import javax.faces.application.Application;
 import javax.faces.application.FacesMessage;
 import javax.faces.application.NavigationHandler;
 import javax.faces.component.UIComponent;
@@ -29,7 +30,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class JSFUtil {
 
-    public Object getBeanFromSession(String beanName) {
+    public static Object getBeanFromSession(String beanName) {
         Object o = null;
         if (!StringUtil.isNullOrEmpty(beanName)) {
             SessionMap sessionMap = getSessionMap();
@@ -41,7 +42,7 @@ public class JSFUtil {
         return o;
     }
 
-    public Object getBeanFromView(String beanName) {
+    public static Object getBeanFromView(String beanName) {
         Object o = null;
         if (!StringUtil.isNullOrEmpty(beanName)) {
             Map<String, Object> viewMap = getViewMap();
@@ -53,7 +54,7 @@ public class JSFUtil {
         return o;
     }
 
-    public Object getBeanFromApplication(String beanName) {
+    public static Object getBeanFromApplication(String beanName) {
         Object o = null;
         if (!StringUtil.isNullOrEmpty(beanName)) {
             ApplicationMap applicationMap = getApplicationMap();
@@ -65,7 +66,7 @@ public class JSFUtil {
         return o;
     }
 
-    public Object getBeanFromRequest(String beanName) {
+    public static Object getBeanFromRequest(String beanName) {
         Object o = null;
         if (!StringUtil.isNullOrEmpty(beanName)) {
             RequestMap requestMap = getRequestMap();
@@ -77,7 +78,7 @@ public class JSFUtil {
         return o;
     }
 
-    public String getPageViewId() {
+    public static String getPageViewId() {
         String viewId = getFacesContext().getViewRoot().getViewId();
         if (!StringUtil.isNullOrEmpty(viewId)) {
             return viewId;
@@ -85,7 +86,7 @@ public class JSFUtil {
         return viewId;
     }
 
-    public void redirectUsingNavigationHandler(String redirectPage) {
+    public static void redirectUsingNavigationHandler(String redirectPage) {
         try {
             if (!StringUtil.isNullOrEmpty(redirectPage)) {
                 NavigationHandler navigationHandler = getFacesContext().getApplication().
@@ -98,7 +99,7 @@ public class JSFUtil {
 
     }
 
-    public void redirectUsingHttpServletResponse(String redirectPage) {
+    public static void redirectUsingHttpServletResponse(String redirectPage) {
         try {
             if (!StringUtil.isNullOrEmpty(redirectPage)) {
                 HttpServletResponse response = (HttpServletResponse) getExternalContext().getResponse();
@@ -109,7 +110,7 @@ public class JSFUtil {
         }
     }
 
-    public void redirectWithExternalContext(String redirectPage) {
+    public static void redirectWithExternalContext(String redirectPage) {
         try {
             if (!StringUtil.isNullOrEmpty(redirectPage)) {
                 ExternalContext context = getExternalContext();
@@ -122,7 +123,7 @@ public class JSFUtil {
 
     }
 
-    public String getActionURL() {
+    public static String getActionURL() {
         String viewId = getPageViewId();
         String actionURL = "";
         if (!StringUtil.isNullOrEmpty(viewId)) {
@@ -135,7 +136,7 @@ public class JSFUtil {
         return actionURL;
     }
 
-    public Object getAndRemoveFromSession(Object key) {
+    public static Object getAndRemoveFromSession(Object key) {
         SessionMap sessionMap = getSessionMap();
         Object o = null;
         if (sessionMap != null && sessionMap.size() > 0 && key != null) {
@@ -147,7 +148,7 @@ public class JSFUtil {
         return sessionMap.get(o);
     }
 
-    public Object getAndRemoveFromViewMap(Object key) {
+    public static Object getAndRemoveFromViewMap(Object key) {
         Map<String, Object> viewMap = getSessionMap();
         Object o = null;
         if (viewMap != null && viewMap.size() > 0 && key != null) {
@@ -159,7 +160,7 @@ public class JSFUtil {
         return viewMap.get(o);
     }
 
-    public Object getAndRemoveFromRequest(Object key) {
+    public static Object getAndRemoveFromRequest(Object key) {
         RequestMap requestMap = getRequestMap();
         Object o = null;
         if (requestMap != null && requestMap.size() > 0 && key != null) {
@@ -172,7 +173,7 @@ public class JSFUtil {
         return requestMap.get(o);
     }
 
-    public Object getAndRemoveFromFlash(Object key) {
+    public static Object getAndRemoveFromFlash(Object key) {
         Flash flash = getFlash();
         Object o = null;
         if (flash != null && flash.size() > 0 && key != null) {
@@ -184,7 +185,7 @@ public class JSFUtil {
         return flash.get(o);
     }
 
-    public Object getAndRemoveFromApplicationMap(Object key) {
+    public static Object getAndRemoveFromApplicationMap(Object key) {
         ApplicationMap applicationMap = getApplicationMap();
         Object o = null;
         if (applicationMap != null && applicationMap.size() > 0 && key != null) {
@@ -196,7 +197,7 @@ public class JSFUtil {
         return applicationMap.get(o);
     }
 
-    public UIComponent findComponentById(String id) {
+    public static UIComponent findComponentById(String id) {
         UIViewRoot root = getFacesContext().getViewRoot();
         final UIComponent[] component = new UIComponent[1];
         root.visitTree(new FullVisitContext(getFacesContext()), new VisitCallback() {
@@ -213,41 +214,45 @@ public class JSFUtil {
         return component[0];
     }
 
-    public SessionMap getSessionMap() {
+    public static NavigationHandler getNavigationHandler() {
+        return getApplication().getNavigationHandler();
+    }
+
+    public static SessionMap getSessionMap() {
         return (SessionMap) getFacesContext().getExternalContext().getSessionMap();
     }
 
-    public RequestMap getRequestMap() {
+    public static RequestMap getRequestMap() {
         return (RequestMap) getFacesContext().getExternalContext().getRequestMap();
     }
 
-    public ApplicationMap getApplicationMap() {
+    public static ApplicationMap getApplicationMap() {
         return (ApplicationMap) getFacesContext().getExternalContext().getApplicationMap();
     }
 
-    public Map<String, Object> getViewMap() {
+    public static Map<String, Object> getViewMap() {
         return (Map<String, Object>) getFacesContext().getViewRoot().getViewMap();
     }
 
-    public Flash getFlash() {
+    public static Flash getFlash() {
         return getFacesContext().getExternalContext().getFlash();
     }
 
-    public void addInfoMessage(String message) {
+    public static void addInfoMessage(String message) {
         if (!StringUtil.isNullOrEmpty(message)) {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, message, null);
             getFacesContext().addMessage(null, msg);
         }
     }
 
-    public void addErrorMessage(String message) {
+    public static void addErrorMessage(String message) {
         if (!StringUtil.isNullOrEmpty(message)) {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null);
             getFacesContext().addMessage(null, msg);
         }
     }
 
-    public void addWarningMessage(String message) {
+    public static void addWarningMessage(String message) {
         if (!StringUtil.isNullOrEmpty(message)) {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_WARN, message, null);
             getFacesContext().addMessage(null, msg);
@@ -255,11 +260,15 @@ public class JSFUtil {
 
     }
 
-    public FacesContext getFacesContext() {
+    public static Application getApplication() {
+        return getFacesContext().getApplication();
+    }
+
+    public static FacesContext getFacesContext() {
         return FacesContext.getCurrentInstance();
     }
 
-    public ExternalContext getExternalContext() {
+    public static ExternalContext getExternalContext() {
         return FacesContext.getCurrentInstance().getExternalContext();
     }
 

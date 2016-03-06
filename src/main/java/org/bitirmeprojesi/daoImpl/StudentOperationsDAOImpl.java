@@ -6,6 +6,7 @@
 package org.bitirmeprojesi.daoImpl;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Named;
@@ -29,7 +30,7 @@ public class StudentOperationsDAOImpl extends JPAService<Student, Serializable> 
         } catch (Exception e) {
             System.out.println("Error from StudentOperationsDAOImpl:" + e.getLocalizedMessage());
             return new DTO("Fail", false);
-        }
+        } 
     }
 
     @Override
@@ -45,11 +46,11 @@ public class StudentOperationsDAOImpl extends JPAService<Student, Serializable> 
         } catch (Exception e) {
             System.out.println("Error from StudentOperationsDAOImpl:" + e.getLocalizedMessage());
             return studentList;
-        }
+        } 
     }
 
     @Override
-    public Student findStudentByLoginNumber(Long loginNumber) {
+    public Student findStudentByLoginNumber(BigInteger loginNumber) {
         Student student = null;
         Query query = this.entityManager.createNamedQuery("Student.findByStudentLoginnumber");
         try {
@@ -64,7 +65,7 @@ public class StudentOperationsDAOImpl extends JPAService<Student, Serializable> 
         } catch (Exception e) {
             System.out.println("Error from StudentOperationsDAOImpl:" + e.getLocalizedMessage());
             return student;
-        }
+        } 
     }
 
 }

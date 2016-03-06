@@ -64,31 +64,15 @@
         <div class="navbar navbar-fixed-top">
             <div class="navbar-inner">
                 <div class="container">
-                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </a>
-
-                    <a class="brand" href="login.xhtml">
-                        Teacher Admin Template				
-                    </a>		
 
                     <div class="nav-collapse">
                         <ul class="nav pull-right">
 
                             <li class="">						
                                 <a href="http://meb.gov.tr" class="">
-                                    Get information
-                                </a>
-                            </li>
-
-                            <li class="">						
-                                <a href="login.xhtml" class="">
                                     <i class="icon-chevron-left"></i>
-                                    Back to Homepage
+                                    Bilgi Al
                                 </a>
-
                             </li>
                         </ul>
 
@@ -107,47 +91,49 @@
 
                 <h:form prependId="false">
                     <div class="image-field">
-                        <p:graphicImage value="/resources/img/meb_logo.png" height="100" width="200"/>
+                        <p:graphicImage value="/resources/img/meb_logo.png" height="100" width="200" />
                     </div>
-                    <h1 style="text-align: center">Teacher Login</h1>		
+                    <h1 style="text-align:center;color:black;font-weight:bold">E-ÖDEV Giriş</h1>		
 
                     <div class="login-fields">
 
-                        <p>Please provide your details</p>
+                        <h1 style="font-size: 12px;color:#f6a828">Lütfen bilgilerinizi giriniz</h1>
 
                         <div class="field">
-                            <h:outputLabel for="j_username">Login Number</h:outputLabel>
+                            <h:outputLabel for="j_username">Giriş numara</h:outputLabel>
                             <p:inputText  id="j_username" value="#{loginController.teacher.teacherLoginNumber}"
-                                          required="true" placeholder="Login Number"
+                                          required="true" placeholder="Giriş numara" style="width:80%"
                                           requiredMessage="Username can't be empty!" styleClass="login username-field" />
                         </div> <!-- /field -->
 
                         <div class="field">
-                            <h:outputLabel for="j_password">Password</h:outputLabel>
-                            <p:password id="j_password"  placeholder="Password"
+                            <h:outputLabel for="j_password">Şifre</h:outputLabel>
+                            <p:password id="j_password"  placeholder="Şifre" style="width:80%"
                                         required="true"
                                         requiredMessage="Password can't be empty!" styleClass="login password-field"/>
                         </div> <!-- /password -->
 
-                    </div> <!-- /login-fields -->
-
+                    </div> <!-- /login-fields --><br/>
                     <div class="login-actions">
+
                         <span class="login-checkbox">
-                             <p:selectBooleanCheckbox id="_spring_security_remember_me" styleClass="field login-checkbox"/>
-                            <h:outputLabel for="_spring_security_remember_me">Keep me signed in</h:outputLabel>
+                            <p:selectBooleanCheckbox id="_spring_remember_me" styleClass="field login-checkbox"/>
+                            <label class="choice" style="font-size:15px;color:#f6a828;font-weight: bold;" for="Field">Beni hatırla</label>
                         </span>
-                        <span class="span">Forgot your password?</span>
+
+
+                        <p:commandButton styleClass="button btn btn-warning btn-large" icon="fa fa-sign-in"
+                                         value="Sign in" ajax="false" style="margin-top:10px;border-radius: 25px"
+                                         action="#{loginController.doLogin}"/>
+
                     </div>
 
 
 
-                    <p:commandButton styleClass="button btn btn-warning btn-sm" icon="fa fa-sign-in"
-                                     value="Sign in" style="border-radius: 15px;float: right;" ajax="false"
-                                     action="#{loginController.doLogin}"/>
 
-                    <h:outputLabel value="#{sessionScope['SPRING_SECURITY_LAST_EXCEPTION'].message}" rendered="#{!empty sessionScope['SPRING_SECURITY_LAST_EXCEPTION'].message}"/>
+                    <h:outputLabel value="#{sessionScope['SPRING_SECURITY_LAST_EXCEPTION'].message}" 
+                                   rendered="#{!empty sessionScope['SPRING_SECURITY_LAST_EXCEPTION'].message}"/>
                 </h:form>
-
             </div> <!-- /content -->
 
         </div> <!-- /account-container -->

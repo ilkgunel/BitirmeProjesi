@@ -71,9 +71,7 @@ textarea {
 
 .navbar-inner {
 	padding: 7px 0;
-	
 	background: #f6a828 !important;
-	
 	-moz-border-radius: 0;
 	-webkit-border-radius: 0;
 	border-radius: 0;
@@ -510,8 +508,7 @@ overflow: hidden;
 }
 
 .error-container h1 {
-	margin-bottom: .5em;
-	
+	margin-bottom: 0.02em;
 	font-size: 120px;
 	line-height: 1em;
 }
@@ -523,7 +520,8 @@ overflow: hidden;
 
 .error-container .error-details {
 	margin-bottom: 1.5em;
-	
+	color:red;
+        font-weight: bold;
 	font-size: 16px;
 }
 

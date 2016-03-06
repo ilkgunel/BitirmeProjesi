@@ -6,6 +6,7 @@
 
 package org.bitirmeprojesi.dao;
 
+import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Local;
 import org.bitirmeprojesi.dto.DTO;
@@ -20,5 +21,5 @@ import org.bitirmeprojesi.entity.Student;
 public interface StudentOperationsDAO {
     DTO addStudent(Student student);
     List<Student> getStudents();
-    Student findStudentByLoginNumber(Long loginNumber);
+    Student findStudentByLoginNumber(BigInteger loginNumber);
 }

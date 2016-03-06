@@ -44,7 +44,7 @@ public class AssignmentOperationsDAOImplService {
             return null;
         }
     }
-    
+
     public Assignment findAssignmentByNameFromService(String name) {
         Assignment assignment = null;
         try {

@@ -7,8 +7,7 @@ package org.bitirmeprojesi.entity;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
@@ -18,29 +17,27 @@ import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-import org.eclipse.persistence.annotations.Cache;
+import org.eclipse.persistence.annotations.CacheCoordinationType;
 import org.eclipse.persistence.annotations.CacheType;
-import org.eclipse.persistence.annotations.ChangeTracking;
+import org.eclipse.persistence.annotations.Cache;
 import org.eclipse.persistence.annotations.ExistenceChecking;
 import org.eclipse.persistence.annotations.ExistenceType;
-import org.eclipse.persistence.config.CacheIsolationType;
 
 /**
  *
  * @author Batuhan
  */
 @Entity
-@Table(name = "assignment")
-@Cache(
-        type = CacheType.SOFT_WEAK,
-        size = 32000,
-        isolation = CacheIsolationType.SHARED,
-        disableHits = true,
-        alwaysRefresh = false,
-        expiry = 36000000 //2 minutes
-)
-@ExistenceChecking(ExistenceType.CHECK_CACHE)
+@Table(name = "assignment", catalog = "e_odev", schema = "")
 @XmlRootElement
+@Cache(
+        type = CacheType.SOFT, // Cache everything until the JVM decides memory is low.
+        size = 64000, // Use 64,000 as the initial cache size.
+        expiry = 36000000, // 10 minutes
+        coordinationType = CacheCoordinationType.INVALIDATE_CHANGED_OBJECTS // if cache coordination is used, only send invalidation messages.
+)
+@Cacheable(true)
+@ExistenceChecking(ExistenceType.CHECK_CACHE)
 @NamedQueries({
     @NamedQuery(name = "Assignment.findAll", query = "SELECT a FROM Assignment a"),
     @NamedQuery(name = "Assignment.findByAssignmentContains", query = "SELECT a FROM Assignment a WHERE a.assignmentContains = :assignmentContains"),
@@ -48,22 +45,31 @@ import org.eclipse.persistence.config.CacheIsolationType;
 public class Assignment extends BasePersistenceObject implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Basic(optional = false)
-    @Size(min = 1, max = 255)
+
+    @Size(max = 255)
     @Column(name = "Assignment_Contains")
     private String assignmentContains;
-    @Basic(optional = false)
-    @Size(min = 1, max = 255)
+    @Size(max = 255)
     @Column(name = "Assignment_Name")
     private String assignmentName;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "sAAssignmentId")
+    @OneToMany(mappedBy = "sAAssignmentId")
     private List<StudentAssesment> studentAssesmentList;
 
     public Assignment() {
     }
 
-    public Assignment(Integer assignmentId) {
-        super(assignmentId);
+    public Assignment(Integer id) {
+        super(id);
+    }
+
+    @Override
+    public void setId(Integer id) {
+        this.id = id; //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Integer getId() {
+        return this.id;
     }
 
     public Assignment(String assignmentContains, String assignmentName) {
@@ -94,6 +100,31 @@ public class Assignment extends BasePersistenceObject implements Serializable {
 
     public void setStudentAssesmentList(List<StudentAssesment> studentAssesmentList) {
         this.studentAssesmentList = studentAssesmentList;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (super.getId() != null ? super.getId().hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Assignment)) {
+            return false;
+        }
+        Assignment other = (Assignment) object;
+        if ((super.getId() == null && other.getId() != null) || (super.getId() != null && !super.getId().equals(other.getId()))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "org.bitirmeprojesi.entity.Assignment[ id=" + super.getId() + " ]";
     }
 
 }

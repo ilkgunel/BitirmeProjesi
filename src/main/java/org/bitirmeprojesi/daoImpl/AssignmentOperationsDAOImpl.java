@@ -34,6 +34,7 @@ public class AssignmentOperationsDAOImpl extends JPAService<Assignment, Serializ
         List<Assignment> assignments = new ArrayList<Assignment>();
         try {
             assignments = this.readAll();
+            this.close();
             return assignments;
         } catch (Exception e) {
             System.out.println("Error from AssignmentOperationsDAOImpl:" + e.getLocalizedMessage());

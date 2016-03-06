@@ -8,6 +8,8 @@ package org.bitirmeprojesi.daoImpl;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.inject.Named;
 import org.bitirmeprojesi.dao.TestOperationsDAO;
 import org.bitirmeprojesi.dto.DTO;
@@ -22,23 +24,31 @@ public class TestOperationsDAOImpl extends JPAService<Test, Serializable> implem
 
     @Override
     public DTO insertTest(Test test) {
-        this.create(test);
+        try {
+            this.create(test);
+        } catch (Exception ex) {
+            Logger.getLogger(TestOperationsDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+        } 
         return new DTO("Success", true);
     }
 
     @Override
     public List<Test> getTestList() {
         List<Test> testList = new ArrayList<Test>();
-        testList = this.readAll();
-        if (testList != null) {
-            return testList;
+        try {
+            testList = this.readAll();
+            if (testList != null) {
+                return testList;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return testList;
     }
 
     @Override
     public Test findTestById(int id) {
-        Test foundTest = this.read(id);;
+        Test foundTest = this.read(id);
         if (foundTest != null) {
             return foundTest;
         } else {

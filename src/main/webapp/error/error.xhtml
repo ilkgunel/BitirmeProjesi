@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <meta charset="utf-8"/>
+        <title>404 - Teacher Admin Template</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+        <meta name="apple-mobile-web-app-capable" content="yes"/> 
+        <link href="../resources/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="../resources/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
+        <link href="../resources/css/font-awesome.css" rel="stylesheet"/>
+        <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600" rel="stylesheet"/>
+        <link href="../resources/css/style.css" rel="stylesheet" type="text/css" />
+    </h:head>
+
+    <h:body>
+
+        <div class="navbar navbar-fixed-top">
+
+            <div class="navbar-inner">
+
+                <div class="container">
+
+
+                    <div class="nav-collapse">
+
+
+                    </div><!--/.nav-collapse -->	
+
+                </div> <!-- /container -->
+
+            </div> <!-- /navbar-inner -->
+
+        </div> <!-- /navbar -->
+
+
+
+        <div class="container">
+
+            <div class="row">
+
+                <div class="span12">
+
+                    <div class="error-container">
+                        <h1 style="font-size: 70px">Error Occured</h1>
+                        <img src="../resources/img/error.png"></img>
+
+                        <div class="error-details">
+
+                                #{flash.keep.errorMessage}
+
+                        </div> <!-- /error-details -->
+
+                        <div class="error-actions">
+                            <a href="../login.xhtml" class="btn btn-large btn-primary">
+                                <i class="icon-chevron-left"></i>
+                                Back to login page				
+                            </a>
+
+                        </div> <!-- /error-actions -->
+
+                    </div> <!-- /error-container -->			
+
+                </div> <!-- /span12 -->
+
+            </div> <!-- /row -->
+
+        </div> <!-- /container -->
+
+
+        <script src="js/jquery-1.7.2.min.js"></script>
+        <script src="js/bootstrap.js"></script>
+
+    </h:body>
+</html>

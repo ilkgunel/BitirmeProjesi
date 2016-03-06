@@ -28,6 +28,8 @@ public class TeacherRoleDefinitionsDAOImpl extends JPAService<Teacherroles, Seri
             return new DTO("Success", true);
         } catch (Exception e) {
             return new DTO("Fail", false);
+        } finally {
+            this.close();
         }
     }
 

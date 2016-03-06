@@ -18,7 +18,7 @@ import org.bitirmeprojesi.entity.Teacher;
  *
  * @author İlkay Günel
  */
-@FacesConverter(forClass = Teacher.class,value = "schoolTeacherIdConverter")
+@FacesConverter(value = "schoolTeacherIdConverter")
 public class SchoolTeacherIdConverter implements Converter {
 	 @Override
 	    public Object getAsObject(FacesContext fc, UIComponent uic, String value) {

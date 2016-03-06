@@ -5,6 +5,7 @@
  */
 package org.bitirmeprojesi.service;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -51,7 +52,7 @@ public class StudentOperationsDAOImplService {
         return studentList;
     }
     
-    public Student findStudentByLoginNumberFromService(Long loginNumber) {
+    public Student findStudentByLoginNumberFromService(BigInteger loginNumber) {
         Student student = null;
         try {
             student = (Student) studentOperationsDAO.findStudentByLoginNumber(loginNumber);
